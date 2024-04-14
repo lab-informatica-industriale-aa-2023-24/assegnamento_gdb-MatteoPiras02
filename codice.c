@@ -17,8 +17,8 @@ void estrai_dati(int ac, char **av, int *vett, int *lung)
 
 void fai_spazio(int posizione, int *vett, int lung)
 {
-	printf("Fai Spazio\n");
-	for (int j = posizione; j <lung ; ++j)  {
+	//printf("Fai Spazio\n");
+	for (int j = lung; j >posizione ; --j)  {
 		vett[j] = vett[j-1];
 		//printf("%d ", vett[j]);
 	}
@@ -34,18 +34,16 @@ void inserisci(int nuovo_dato, int num_dati_ord, int *vett)
 	}
 	for (int i = 0; i < num_dati_ord; ++i)  
 	{
-		printf("%d, %d\n", nuovo_dato, vett[i]);
+		//printf("%d, %d\n", nuovo_dato, vett[i]);
 		if (nuovo_dato<vett[i])  
 		{
-			
 			// sposta da vett[i] in poi di un posto sulla destra
 			// prima di inserire il nuovo_dato
 			fai_spazio(i, vett, num_dati_ord);
 			vett[i]=nuovo_dato;
 			return;
 		}
-		vett[i+1] = nuovo_dato;
-		return;
+		vett[num_dati_ord]=nuovo_dato;
 	}
 }
 
@@ -53,7 +51,6 @@ void ordina_dati(const int *dati_non_ordinati, int *dati_ordinati, int argc)
 {
 	for (int i = 0; i < argc-1; ++i){
 		inserisci(dati_non_ordinati[i], i, dati_ordinati);
-		printf("%d\n", i);
 	}
 }
 
