@@ -11,43 +11,50 @@
 void estrai_dati(int ac, char **av, int *vett, int *lung)
 {
 	*lung = ac - 1;
-
 	for (int i = 0; i < *lung; ++i)
 		vett[i] = atoi(av[i+1]);
 }
 
 void fai_spazio(int posizione, int *vett, int lung)
 {
-	for (int j = lung - 1; j > posizione; ++j) 
+	//printf("Fai Spazio\n");
+	for (int j = lung; j >posizione ; --j)  {
 		vett[j] = vett[j-1];
+		//printf("%d ", vett[j]);
+	}
 }
 
 void inserisci(int nuovo_dato, int num_dati_ord, int *vett)
 { 
-	if (num_dati_ord = 0)  { // il vettore è vuoto, facile
+	if (num_dati_ord == 0)  
+	{ // il vettore è vuoto, facile
 		vett[0] = nuovo_dato;
+		//printf("%d ", nuovo_dato);
 		return;
 	}
-
-	for (int i = 0; i < num_dati_ord; ++i)  {
-		if (nuovo_dato < vett[i])  {
+	for (int i = 0; i < num_dati_ord; ++i)  
+	{
+		//printf("%d, %d\n", nuovo_dato, vett[i]);
+		if (nuovo_dato<vett[i])  
+		{
 			// sposta da vett[i] in poi di un posto sulla destra
 			// prima di inserire il nuovo_dato
 			fai_spazio(i, vett, num_dati_ord);
-			vett[i] = nuovo_dato;
+			vett[i]=nuovo_dato;
 			return;
 		}
+		vett[num_dati_ord]=nuovo_dato;
 	}
 }
 
-void ordina_dati(const int *dati_non_ordinati, int *dati_ordinati)
+void ordina_dati(const int *dati_non_ordinati, int *dati_ordinati, int argc)
 {
-	int num_dati = sizeof(dati_non_ordinati) / sizeof(dati_non_ordinati[0]);
-	for (int i = 0; i < num_dati; ++i)
+	for (int i = 0; i < argc-1; ++i){
 		inserisci(dati_non_ordinati[i], i, dati_ordinati);
+	}
 }
 
-void stampa_vettore(const int *vett, int lung)
+void stampa_vettore(int *vett, int lung)
 {
 	for (int i = 0; i < lung; ++i)
 		printf("%d ",vett[i]);
@@ -56,16 +63,17 @@ void stampa_vettore(const int *vett, int lung)
 
 int main(int argc, char **argv)
 {
-	if (argc > MAX_INPUT + 1) {
+	if (argc > MAX_INPUT+1) 
+	{
 		printf("Numero massimo di input %d\n", MAX_INPUT);
 		return -1;
 	}
+	
 	int dati_input[MAX_INPUT] = {0};
 	int dati_ordinati[MAX_INPUT] = {0};
 	int num_dati = 0;
-
 	estrai_dati(argc, argv, dati_input, &num_dati);
-	ordina_dati(dati_input, dati_ordinati);
+	ordina_dati(dati_input, dati_ordinati, argc);
 	stampa_vettore(dati_ordinati, num_dati);
 	return 0;
 }
