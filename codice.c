@@ -63,7 +63,7 @@ void stampa_vettore(int *vett, int lung)
 
 int main(int argc, char **argv)
 {
-	if (argc > MAX_INPUT) 
+	if (argc > MAX_INPUT+1) 
 	{
 		printf("Numero massimo di input %d\n", MAX_INPUT);
 		return -1;
